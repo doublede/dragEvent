@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片背景</title>
+<style type="text/css">
+body{
+    margin:0;
+    padding:0;
+}
+
+.aa{
+    width:300px;
+    height:300px;
+    position:absolute;
+    top:170px;
+    left:500px;
+    
+    background: yellow;
+}
+
+.bb{
+    width:20px;
+    height:20px;
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background: orangered;
+}
+.cc{
+    width:200px;
+    height:40px;
+    margin:10px 50px;
+    background: lightseagreen;
+}
+</style>
+</head>
+<body>
+    <div class="aa">
+        <div class="bb"></div>
+        <div class="cc"></div>
+    </div>
+
+<script type="text/javascript">
+var cc=document.getElementsByClassName("cc")[0];
+var aa=document.getElementsByClassName("aa")[0];
+cc.onmousedown=function(event){
+    var event=event || window.event;
+    sx=event.clientX;
+    sy=event.clientY;
+    cX=sx-aa.offsetLeft;
+        cY=sy-aa.offsetTop;
+        abc();
+        document.onmouseup=function(){
+           document.onmousemove=null;
+            document.onmouseup=null;
+        }
+}
+
+function abc(){
+    document.onmousemove=function(event){
+        var event=event?event:window.event;
+        nx=event.clientX;
+        ny=event.clientY;
+        wH=document.documentElement.clientHeight || document.body.clientHeight;
+        wW=document.documentElement.clientWidth || document.body.clientWidth;
+        l=nx-cX;
+        t=ny-cY;
+        maxW=wW-aa.offsetWidth;
+        maxH=wH-aa.offsetHeight;
+        if(l<0){
+            l=0;
+        }else if(l>maxW){
+            l=maxW-5;
+        }
+        if(t<5){
+            t=5;
+        }else if(t>maxH){
+            t=maxH;
+        }
+        aa.style.left=l+"px";
+        aa.style.top=t+"px";
+        
+        document.title=event.clientX+","+event.clientY;
+
+
+
+    }
+}
+
+</script>
+
+</body>
+</html>
